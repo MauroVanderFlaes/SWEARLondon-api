@@ -1,7 +1,7 @@
-//require the order model
-const Order = require("../../../models/Order");
+//require the shoe model
+const Shoe = require("../../../models/Shoe");
 
-//create a new order
+//create a new shoe
 const create = async (req, res) => {
   //get brand, size, color, price, quantity, user from the request body
   let { brand, size, color, price, quantity, user } = req.body;
@@ -14,7 +14,7 @@ const create = async (req, res) => {
     });
   }
 
-  let order = new Order({
+  let shoe = new Shoe({
     brand,
     size,
     color,
@@ -24,27 +24,27 @@ const create = async (req, res) => {
   });
 
   try {
-    // Attempt to save the order
-    await order.save();
+    // Attempt to save the shoe
+    await shoe.save();
 
     // Respond with success
     res.json({
       status: "success",
-      message: "Order created successfully!",
+      message: "Shoe created successfully!",
       data: [
         {
-          brand: order.brand,
-          size: order.size,
-          color: order.color,
-          price: order.price,
-          quantity: order.quantity,
-          user: order.user,
+          brand: shoe.brand,
+          size: shoe.size,
+          color: shoe.color,
+          price: shoe.price,
+          quantity: shoe.quantity,
+          user: shoe.user,
         },
       ],
     });
   } catch (error) {
     // Handle the error
-    console.error("Error creating order:", error);
+    console.error("Error creating shoe:", error);
     res.status(500).json({
       status: "error",
       message: "Internal server error",
