@@ -1,5 +1,5 @@
 //require the order model
-const Order = require("../../models/Order");
+const Order = require("../../../models/Order");
 
 //create a new order
 const create = async (req, res) => {
