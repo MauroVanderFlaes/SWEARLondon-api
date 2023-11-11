@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-//create a schema for shoe orders, all fields are required except material, laces & sole
-const OrderSchema = new Schema({
+//create a schema for shoe shoes, all fields are required except material, laces & sole
+const ShoeSchema = new Schema({
   brand: { type: String, required: true },
   size: { type: Number, required: true },
   material: { type: String, required: false },
@@ -17,4 +17,4 @@ const OrderSchema = new Schema({
 });
 
 //export the model
-module.exports = mongoose.model("Orders", OrderSchema);
+module.exports = mongoose.model("shoes", ShoeSchema);

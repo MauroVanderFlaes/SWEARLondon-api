@@ -19,11 +19,11 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 
 //import routes
-const ordersRouter = require('./routes/api/v1/orders');
+const shoesRouter = require('./routes/api/v1/shoes');
 
 //use imported routes & express
 app.use(express.json());
-app.use('/api/v1/orders', ordersRouter);
+app.use('/api/v1/shoes', shoesRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
