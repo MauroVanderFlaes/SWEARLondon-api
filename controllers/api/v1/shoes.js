@@ -96,40 +96,14 @@ const update = async (req, res) => {
   // Get the shoe id from the request parameters
   let id = req.params.id; // Assuming the id is part of the URL parameters
 
-  // Get brand, size, laces, sole_bottom, sole_top, inside, outside_1, outside_2, outside_3, price, quantity, user from the request body
-  let {
-    brand,
-    size,
-    laces,
-    sole_bottom,
-    sole_top,
-    inside,
-    outside_1,
-    outside_2,
-    outside_3,
-    price,
-    quantity,
-    user,
-  } = req.body;
+  // Get the status from the request body
+  let { status } = req.body;
 
   // Input validation
-  if (
-    !brand ||
-    !size ||
-    !laces ||
-    !sole_bottom ||
-    !sole_top ||
-    !inside ||
-    !outside_1 ||
-    !outside_2 ||
-    !outside_3 ||
-    !price ||
-    !quantity ||
-    !user
-  ) {
+  if (!status) {
     return res.status(400).json({
       status: "error",
-      message: "Missing required fields",
+      message: "Missing required 'status' field",
     });
   }
 
@@ -139,18 +113,7 @@ const update = async (req, res) => {
       { _id: id },
       {
         $set: {
-          brand,
-          size,
-          laces,
-          sole_bottom,
-          sole_top,
-          inside,
-          outside_1,
-          outside_2,
-          outside_3,
-          price,
-          quantity,
-          user,
+          status,
         },
       }
     );
@@ -160,21 +123,10 @@ const update = async (req, res) => {
       // Respond with success
       res.json({
         status: "success",
-        message: "Shoe updated successfully!",
+        message: "Shoe status updated successfully!",
         data: [
           {
-            brand,
-            size,
-            laces,
-            sole_bottom,
-            sole_top,
-            inside,
-            outside_1,
-            outside_2,
-            outside_3,
-            price,
-            quantity,
-            user,
+            status,
           },
         ],
       });
