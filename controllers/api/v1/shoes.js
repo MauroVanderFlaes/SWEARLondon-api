@@ -77,6 +77,7 @@ const create = async (req, res) => {
           price: shoe.price,
           quantity: shoe.quantity,
           user: shoe.user,
+          status: shoe.status,
         },
       ],
     });
