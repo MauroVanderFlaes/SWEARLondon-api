@@ -17,6 +17,7 @@ const ShoeSchema = new Schema({
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   user: { type: String, required: true },
+  status: { type: String, default: "To be produced" },
 });
 
 //export the model
