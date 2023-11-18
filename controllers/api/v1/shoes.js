@@ -4,10 +4,10 @@ const Shoe = require("../../../models/Shoe");
 //create a new shoe
 const create = async (req, res) => {
   //get brand, size, color, price, quantity, user from the request body
-  let { brand, size, color, price, quantity, user } = req.body;
+  let { brand, size, laces, sole_bottom, sole_top, inside, outside_1, outside_2, outside_3, price, quantity, user } = req.body;
 
   // Input validation
-  if (!brand || !size || !color || !price || !quantity || !user) {
+  if (!brand || !size || !laces || !sole_bottom || !sole_top || !inside || !outside_1 || !outside_2 || !outside_3 || !price || !quantity || !user) {
     return res.status(400).json({
       status: "error",
       message: "Missing required fields",
@@ -17,7 +17,13 @@ const create = async (req, res) => {
   let shoe = new Shoe({
     brand,
     size,
-    color,
+    laces,
+    sole_bottom,
+    sole_top,
+    inside,
+    outside_1,
+    outside_2,
+    outside_3,
     price,
     quantity,
     user,
@@ -35,7 +41,13 @@ const create = async (req, res) => {
         {
           brand: shoe.brand,
           size: shoe.size,
-          color: shoe.color,
+          laces: shoe.laces,
+          sole_bottom: shoe.sole_bottom,
+          sole_top: shoe.sole_top,
+          inside: shoe.inside,
+          outside_1: shoe.outside_1,
+          outside_2: shoe.outside_2,
+          outside_3: shoe.outside_3,
           price: shoe.price,
           quantity: shoe.quantity,
           user: shoe.user,
