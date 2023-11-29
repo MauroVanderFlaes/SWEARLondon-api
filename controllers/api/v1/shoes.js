@@ -3,9 +3,8 @@ const Shoe = require("../../../models/Shoe");
 
 //create a new shoe
 const create = async (req, res) => {
-  //get brand, size, color, price, quantity, user from the request body
+  //get size, color, price, quantity, user from the request body
   let {
-    brand,
     size,
     laces,
     sole_bottom,
@@ -16,12 +15,13 @@ const create = async (req, res) => {
     outside_3,
     price,
     quantity,
-    user,
+    username,
+    user_mail,
+    reference_number,
   } = req.body;
 
   // Input validation
   if (
-    !brand ||
     !size ||
     !laces ||
     !sole_bottom ||
@@ -32,7 +32,9 @@ const create = async (req, res) => {
     !outside_3 ||
     !price ||
     !quantity ||
-    !user
+    !username ||
+    !user_mail ||
+    !reference_number
   ) {
     return res.status(400).json({
       status: "error",
@@ -41,7 +43,6 @@ const create = async (req, res) => {
   }
 
   let shoe = new Shoe({
-    brand,
     size,
     laces,
     sole_bottom,
@@ -52,7 +53,9 @@ const create = async (req, res) => {
     outside_3,
     price,
     quantity,
-    user,
+    username,
+    user_mail,
+    reference_number,
   });
 
   try {
@@ -65,7 +68,6 @@ const create = async (req, res) => {
       message: "Shoe created successfully!",
       data: [
         {
-          brand: shoe.brand,
           size: shoe.size,
           laces: shoe.laces,
           sole_bottom: shoe.sole_bottom,
@@ -76,8 +78,10 @@ const create = async (req, res) => {
           outside_3: shoe.outside_3,
           price: shoe.price,
           quantity: shoe.quantity,
-          user: shoe.user,
+          username: shoe.username,
+          user_mail: shoe.user_mail,
           status: shoe.status,
+          reference_number: shoe.reference_number,
         },
       ],
     });
