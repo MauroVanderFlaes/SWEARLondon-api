@@ -36,6 +36,41 @@ const create = async (req, res) => {
   }
 };
 
+const updatePassword = async (req, res) => {
+  //update the password of a certain user by id
+  let id = req.params.id;
+  let { password } = req.body;
+
+  // Input validation
+  if (!password) {
+    return res.status(400).json({
+      status: "error",
+      message: "Missing required 'password' field",
+    });
+  }
+
+  //update the password
+  try {
+    await User.updateOne(
+      { _id: id },
+      {
+        $set: {
+          password,
+        },
+      }
+    );
+    return res.status(200).json({
+      status: "success",
+      message: "Password updated successfully",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: "error",
+      message: "Error updating password",
+    });
+  }
+};
+
 //export the create function
 module.exports.create = create;
-
+module.exports.updatePassword = updatePassword;
