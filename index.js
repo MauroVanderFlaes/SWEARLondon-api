@@ -20,10 +20,12 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 //import routes
 const shoesRouter = require('./routes/api/v1/shoes');
+const usersRouter = require('./routes/api/v1/users');
 
 //use imported routes & express
 app.use(express.json());
 app.use('/api/v1/shoes', shoesRouter);
+app.use('/api/v1/users', usersRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
