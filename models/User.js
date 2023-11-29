@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   username: { type: String, required: true },
   user_mail: { type: String, required: true },
   password: { type: String, required: true },
-  admin: { type: Boolean, default: false },
+  admin: { type: Boolean, default: true },
 });
 
 //export the model

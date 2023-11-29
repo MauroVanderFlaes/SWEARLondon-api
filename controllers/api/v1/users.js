@@ -1,6 +1,10 @@
 //require the user model
 const User = require("../../../models/User");
 
+//require bcrypt
+const bcrypt = require("bcrypt");
+const salt = 12;
+
 //create a new user
 const create = async (req, res) => {
   //get username, user_mail, password from the request body
@@ -14,10 +18,13 @@ const create = async (req, res) => {
     });
   }
 
+  //hash the password
+  hashedPassword = await bcrypt.hash(password, salt);
+
   let user = new User({
     username,
     user_mail,
-    password,
+    password: hashedPassword,
   });
 
   //save the user
@@ -49,13 +56,16 @@ const updatePassword = async (req, res) => {
     });
   }
 
+  //hash the password
+  hashedPassword = await bcrypt.hash(password, salt);
+
   //update the password
   try {
     await User.updateOne(
       { _id: id },
       {
         $set: {
-          password,
+          password: hashedPassword,
         },
       }
     );
