@@ -96,6 +96,33 @@ const create = async (req, res) => {
   }
 };
 
+const index = async (req, res) => {
+  let shoes = await Shoe.find({});
+  res.json({
+      status: "success",
+      message: "GET all shoes",
+      data: [
+          {
+              shoes: shoes,
+          },
+      ],
+  });
+};
+
+const indexId = async (req, res) => {
+  let id = req.params.id;
+  let shoeId = await Shoe.find({ _id: id });
+  res.json({
+      status: "success",
+      message: "GET one shoe by ID",
+      data: [
+          {
+              shoe: id,
+          },
+      ],
+  });
+}
+
 const update = async (req, res) => {
   // Get the shoe id from the request parameters
   let id = req.params.id; // Assuming the id is part of the URL parameters
@@ -152,6 +179,26 @@ const update = async (req, res) => {
   }
 };
 
+const destroy = async (req, res) => {
+  let id = req.params.id;
+  let s = await Shoe.findOneAndDelete({
+      _id: id,
+  });
+
+  res.json({
+      status: "success",
+      message: "DELETE a shoe",
+      data: [
+          {
+              shoe: s,
+          },
+      ],
+  });
+};
+
 //export the create function
 module.exports.create = create;
+module.exports.index = index;
+module.exports.indexId = indexId;
 module.exports.update = update;
+module.exports.destroy = destroy;

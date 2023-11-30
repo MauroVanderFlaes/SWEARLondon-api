@@ -8,7 +8,11 @@ const router = express.Router();
 const shoesController = require("../../../controllers/api/v1/shoes");
 
 router.post("/", shoesController.create);
+router.get("/", shoesController.index);
+router.get("/:id", shoesController.indexId);
 router.put("/:id", shoesController.update);
+router.delete("/:id", shoesController.destroy);
+
 
 //export the router
 module.exports = router;
