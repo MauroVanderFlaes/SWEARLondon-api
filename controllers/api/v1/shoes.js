@@ -97,16 +97,31 @@ const create = async (req, res) => {
 };
 
 const index = async (req, res) => {
-  let shoes = await Shoe.find({});
-  res.json({
+  try {
+    let shoes;
+    
+    if (req.query.sortby === 'date') {
+      shoes = await Shoe.find({}).sort({ date: 1 }); // Assuming 'date' is the field you want to sort by
+    } else {
+      shoes = await Shoe.find({});
+    }
+    
+    res.json({
       status: "success",
       message: "GET all shoes",
       data: [
-          {
-              shoes: shoes,
-          },
+        {
+          shoes: shoes,
+        },
       ],
-  });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      status: "error",
+      message: "Internal Server Error",
+    });
+  }
 };
 
 
