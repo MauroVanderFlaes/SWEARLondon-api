@@ -19,6 +19,7 @@ const ShoeSchema = new Schema({
   user_mail: { type: String, required: true }, 
   status: { type: String, default: "To be produced" },
   reference_number: { type: Number, required: true },
+  date: { type: Date, default: Date.now },
 });
 
 //export the model

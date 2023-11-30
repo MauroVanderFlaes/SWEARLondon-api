@@ -82,6 +82,7 @@ const create = async (req, res) => {
           user_mail: shoe.user_mail,
           status: shoe.status,
           reference_number: shoe.reference_number,
+          date: shoe.date,
         },
       ],
     });
