@@ -179,10 +179,26 @@ const update = async (req, res) => {
   }
 };
 
+const destroy = async (req, res) => {
+  let id = req.params.id;
+  let s = await Shoe.findOneAndDelete({
+      _id: id,
+  });
 
+  res.json({
+      status: "success",
+      message: "DELETE a shoe",
+      data: [
+          {
+              shoe: s,
+          },
+      ],
+  });
+};
 
 //export the create function
 module.exports.create = create;
 module.exports.index = index;
 module.exports.indexId = indexId;
 module.exports.update = update;
+module.exports.destroy = destroy;

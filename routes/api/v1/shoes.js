@@ -11,6 +11,7 @@ router.post("/", shoesController.create);
 router.get("/", shoesController.index);
 router.get("/:id", shoesController.indexId);
 router.put("/:id", shoesController.update);
+router.delete("/:id", shoesController.destroy);
 
 
 //export the router
