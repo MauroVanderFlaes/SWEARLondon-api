@@ -9,6 +9,7 @@ const shoesController = require("../../../controllers/api/v1/shoes");
 
 router.post("/", shoesController.create);
 router.get("/", shoesController.index);
+router.get("/:id", shoesController.indexId);
 router.put("/:id", shoesController.update);
 
 

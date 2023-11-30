@@ -109,7 +109,19 @@ const index = async (req, res) => {
   });
 };
 
-
+const indexId = async (req, res) => {
+  let id = req.params.id;
+  let shoeId = await Shoe.find({ _id: id });
+  res.json({
+      status: "success",
+      message: "GET one shoe by ID",
+      data: [
+          {
+              shoe: id,
+          },
+      ],
+  });
+}
 
 const update = async (req, res) => {
   // Get the shoe id from the request parameters
@@ -172,4 +184,5 @@ const update = async (req, res) => {
 //export the create function
 module.exports.create = create;
 module.exports.index = index;
+module.exports.indexId = indexId;
 module.exports.update = update;
