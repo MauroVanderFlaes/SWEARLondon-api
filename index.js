@@ -5,6 +5,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+//require cors
+const cors = require('cors');
+
 //require mongoose
 const mongoose = require('mongoose');
 
@@ -24,6 +27,8 @@ const usersRouter = require('./routes/api/v1/users');
 
 //use imported routes & express
 app.use(express.json());
+//use cors
+app.use(cors());
 app.use('/api/v1/shoes', shoesRouter);
 app.use('/api/v1/users', usersRouter);
 
