@@ -45,7 +45,7 @@ const create = async (req, res) => {
 
 const updatePassword = async (req, res) => {
   //update the password of a certain user by id
-  let id = req.params.id;
+  let mail = req.params.mail;
   let { password } = req.body;
 
   // Input validation
@@ -62,7 +62,7 @@ const updatePassword = async (req, res) => {
   //update the password
   try {
     await User.updateOne(
-      { _id: id },
+      { user_mail: mail },
       {
         $set: {
           password: hashedPassword,
