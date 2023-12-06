@@ -100,21 +100,36 @@ const create = async (req, res) => {
 const index = async (req, res) => {
   try {
     let shoes;
-    
-    if (req.query.sortby === 'date') {
+
+    if (req.query.sortby === "date") {
       shoes = await Shoe.find({}).sort({ date: 1 }); // Assuming 'date' is the field you want to sort by
     } else {
       shoes = await Shoe.find({});
     }
-    
+
+    const shoeData = shoes.map((shoe) => ({
+      id: shoe._id,
+      size: shoe.size,
+      laces: shoe.laces,
+      sole_bottom: shoe.sole_bottom,
+      sole_top: shoe.sole_top,
+      inside: shoe.inside,
+      outside_1: shoe.outside_1,
+      outside_2: shoe.outside_2,
+      outside_3: shoe.outside_3,
+      price: shoe.price,
+      quantity: shoe.quantity,
+      username: shoe.username,
+      user_mail: shoe.user_mail,
+      reference_number: shoe.reference_number,
+      date: shoe.date,
+      status: shoe.status,
+    }));
+
     res.json({
       status: "success",
       message: "GET all shoes",
-      data: [
-        {
-          shoes: shoes,
-        },
-      ],
+      data: shoeData,
     });
   } catch (error) {
     console.error(error);
@@ -127,17 +142,33 @@ const index = async (req, res) => {
 
 const indexId = async (req, res) => {
   let id = req.params.id;
-  let shoeId = await Shoe.find({ _id: id });
+  let shoeId = await Shoe.findById({ _id: id });
+
+  const shoeData = {
+    id: shoeId._id,
+    size: shoeId.size,
+    laces: shoeId.laces,
+    sole_bottom: shoeId.sole_bottom,
+    sole_top: shoeId.sole_top,
+    inside: shoeId.inside,
+    outside_1: shoeId.outside_1,
+    outside_2: shoeId.outside_2,
+    outside_3: shoeId.outside_3,
+    price: shoeId.price,
+    quantity: shoeId.quantity,
+    username: shoeId.username,
+    user_mail: shoeId.user_mail,
+    reference_number: shoeId.reference_number,
+    date: shoeId.date,
+    status: shoeId.status,
+  };
+
   res.json({
-      status: "success",
-      message: "GET one shoe by ID",
-      data: [
-          {
-              shoe: id,
-          },
-      ],
+    status: "success",
+    message: "GET one shoe by ID",
+    data: shoeData
   });
-}
+};
 
 const update = async (req, res) => {
   // Get the shoe id from the request parameters
@@ -198,17 +229,17 @@ const update = async (req, res) => {
 const destroy = async (req, res) => {
   let id = req.params.id;
   let s = await Shoe.findOneAndDelete({
-      _id: id,
+    _id: id,
   });
 
   res.json({
-      status: "success",
-      message: "DELETE a shoe",
-      data: [
-          {
-              shoe: s,
-          },
-      ],
+    status: "success",
+    message: "DELETE a shoe",
+    data: [
+      {
+        shoe: s,
+      },
+    ],
   });
 };
 
