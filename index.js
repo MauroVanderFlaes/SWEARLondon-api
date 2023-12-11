@@ -1,37 +1,36 @@
-//require express
-const express = require('express');
+const express = require("express");
+const http = require("http");
+const Primus = require("primus");
+const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-//start express on port 3000
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-//require cors
-const cors = require('cors');
-
-//require mongoose
-const mongoose = require('mongoose');
-
-//require dotenv
-require('dotenv').config();
-
-//connect to mongodb
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB);
-
-// // check if connection works
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 
-//import routes
-const shoesRouter = require('./routes/api/v1/shoes');
-const usersRouter = require('./routes/api/v1/users');
+// Import routes
+const shoesRouter = require("./routes/api/v1/shoes");
+const usersRouter = require("./routes/api/v1/users");
 
-//use imported routes & express
 app.use(express.json());
-//use cors
 app.use(cors());
-app.use('/api/v1/shoes', shoesRouter);
-app.use('/api/v1/users', usersRouter);
+app.use("/api/v1/shoes", shoesRouter);
+app.use("/api/v1/users", usersRouter);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+// Create an HTTP server
+const server = http.createServer(app);
+
+// Create a Primus instance and attach it to the server
+const primus = new Primus(server, { transformer: "websockets" });
+
+// Add your Primus logic in primus/live.js (similar to what you had before)
+require("./primus/live").go(primus);
+
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
