@@ -6,13 +6,20 @@ const create = async (req, res) => {
   //get size, color, price, quantity, user from the request body
   let {
     size,
-    laces,
-    sole_bottom,
-    sole_top,
-    inside,
-    outside_1,
-    outside_2,
-    outside_3,
+    laces_color,
+    sole_bottom_color,
+    sole_top_color,
+    inside_color,
+    outside_1_color,
+    outside_2_color,
+    outside_3_color,
+    laces_material,
+    sole_bottom_material,
+    sole_top_material,
+    inside_material,
+    outside_1_material,
+    outside_2_material,
+    outside_3_material,
     price,
     quantity,
     username,
@@ -22,19 +29,22 @@ const create = async (req, res) => {
 
   // Input validation
   if (
-    !size ||
-    !laces ||
-    !sole_bottom ||
-    !sole_top ||
-    !inside ||
-    !outside_1 ||
-    !outside_2 ||
-    !outside_3 ||
-    !price ||
-    !quantity ||
+    !laces_color ||
+    !sole_bottom_color ||
+    !sole_top_color ||
+    !inside_color ||
+    !outside_1_color ||
+    !outside_2_color ||
+    !outside_3_color ||
+    !laces_material ||
+    !sole_bottom_material ||
+    !sole_top_material ||
+    !inside_material ||
+    !outside_1_material ||
+    !outside_2_material ||
+    !outside_3_material ||
     !username ||
-    !user_mail ||
-    !reference_number
+    !user_mail
   ) {
     return res.status(400).json({
       status: "error",
@@ -44,13 +54,20 @@ const create = async (req, res) => {
 
   let shoe = new Shoe({
     size,
-    laces,
-    sole_bottom,
-    sole_top,
-    inside,
-    outside_1,
-    outside_2,
-    outside_3,
+    laces_color,
+    sole_bottom_color,
+    sole_top_color,
+    inside_color,
+    outside_1_color,
+    outside_2_color,
+    outside_3_color,
+    laces_material,
+    sole_bottom_material,
+    sole_top_material,
+    inside_material,
+    outside_1_material,
+    outside_2_material,
+    outside_3_material,
     price,
     quantity,
     username,
@@ -68,21 +85,29 @@ const create = async (req, res) => {
       message: "Shoe created successfully!",
       data: [
         {
+          id: shoe._id,
           size: shoe.size,
-          laces: shoe.laces,
-          sole_bottom: shoe.sole_bottom,
-          sole_top: shoe.sole_top,
-          inside: shoe.inside,
-          outside_1: shoe.outside_1,
-          outside_2: shoe.outside_2,
-          outside_3: shoe.outside_3,
+          laces_color: shoe.laces_color,
+          sole_bottom_color: shoe.sole_bottom_color,
+          sole_top_color: shoe.sole_top_color,
+          inside_color: shoe.inside_color,
+          outside_1_color: shoe.outside_1_color,
+          outside_2_color: shoe.outside_2_color,
+          outside_3_color: shoe.outside_3_color,
+          laces_material: shoe.laces_material,
+          sole_bottom_material: shoe.sole_bottom_material,
+          sole_top_material: shoe.sole_top_material,
+          inside_material: shoe.inside_material,
+          outside_1_material: shoe.outside_1_material,
+          outside_2_material: shoe.outside_2_material,
+          outside_3_material: shoe.outside_3_material,
           price: shoe.price,
           quantity: shoe.quantity,
           username: shoe.username,
           user_mail: shoe.user_mail,
-          status: shoe.status,
           reference_number: shoe.reference_number,
           date: shoe.date,
+          status: shoe.status,
         },
       ],
     });
@@ -110,13 +135,20 @@ const index = async (req, res) => {
     const shoeData = shoes.map((shoe) => ({
       id: shoe._id,
       size: shoe.size,
-      laces: shoe.laces,
-      sole_bottom: shoe.sole_bottom,
-      sole_top: shoe.sole_top,
-      inside: shoe.inside,
-      outside_1: shoe.outside_1,
-      outside_2: shoe.outside_2,
-      outside_3: shoe.outside_3,
+      laces_color: shoe.laces_color,
+      sole_bottom_color: shoe.sole_bottom_color,
+      sole_top_color: shoe.sole_top_color,
+      inside_color: shoe.inside_color,
+      outside_1_color: shoe.outside_1_color,
+      outside_2_color: shoe.outside_2_color,
+      outside_3_color: shoe.outside_3_color,
+      laces_material: shoe.laces_material,
+      sole_bottom_material: shoe.sole_bottom_material,
+      sole_top_material: shoe.sole_top_material,
+      inside_material: shoe.inside_material,
+      outside_1_material: shoe.outside_1_material,
+      outside_2_material: shoe.outside_2_material,
+      outside_3_material: shoe.outside_3_material,
       price: shoe.price,
       quantity: shoe.quantity,
       username: shoe.username,
@@ -142,31 +174,38 @@ const index = async (req, res) => {
 
 const indexId = async (req, res) => {
   let id = req.params.id;
-  let shoeId = await Shoe.findById({ _id: id });
+  let shoe = await Shoe.findById({ _id: id });
 
   const shoeData = {
-    id: shoeId._id,
-    size: shoeId.size,
-    laces: shoeId.laces,
-    sole_bottom: shoeId.sole_bottom,
-    sole_top: shoeId.sole_top,
-    inside: shoeId.inside,
-    outside_1: shoeId.outside_1,
-    outside_2: shoeId.outside_2,
-    outside_3: shoeId.outside_3,
-    price: shoeId.price,
-    quantity: shoeId.quantity,
-    username: shoeId.username,
-    user_mail: shoeId.user_mail,
-    reference_number: shoeId.reference_number,
-    date: shoeId.date,
-    status: shoeId.status,
+    id: shoe._id,
+    size: shoe.size,
+    laces_color: shoe.laces_color,
+    sole_bottom_color: shoe.sole_bottom_color,
+    sole_top_color: shoe.sole_top_color,
+    inside_color: shoe.inside_color,
+    outside_1_color: shoe.outside_1_color,
+    outside_2_color: shoe.outside_2_color,
+    outside_3_color: shoe.outside_3_color,
+    laces_material: shoe.laces_material,
+    sole_bottom_material: shoe.sole_bottom_material,
+    sole_top_material: shoe.sole_top_material,
+    inside_material: shoe.inside_material,
+    outside_1_material: shoe.outside_1_material,
+    outside_2_material: shoe.outside_2_material,
+    outside_3_material: shoe.outside_3_material,
+    price: shoe.price,
+    quantity: shoe.quantity,
+    username: shoe.username,
+    user_mail: shoe.user_mail,
+    reference_number: shoe.reference_number,
+    date: shoe.date,
+    status: shoe.status,
   };
 
   res.json({
     status: "success",
     message: "GET one shoe by ID",
-    data: shoeData
+    data: shoeData,
   });
 };
 
