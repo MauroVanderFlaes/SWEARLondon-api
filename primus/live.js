@@ -4,8 +4,10 @@ module.exports.go = (primus) => {
 
     spark.on("data", (data) => {
       // Handle data from the client
-      console.log("Received data from client:", data);
-      primus.write(data);
+      if (data.action === "newOrder") {
+        // Broadcast the data to all connected clients
+        primus.write(data);
+      }
     });
   });
 };
