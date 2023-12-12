@@ -1,7 +1,7 @@
 //require the user model
 const User = require("../../../models/User");
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 //require bcrypt
 const bcrypt = require("bcrypt");
@@ -82,7 +82,6 @@ const updatePassword = async (req, res) => {
   }
 };
 
-
 const login = async (req, res) => {
   //get username, user_mail, password from the request body
   let { user_mail, password } = req.body;
@@ -115,7 +114,11 @@ const login = async (req, res) => {
   }
 
   // Create JWT token
-  const token = jwt.sign({ user_id: user._id, user_mail: user.user_mail, admin: user.admin }, 'your_secret_key', { expiresIn: '1h' });
+  const token = jwt.sign(
+    { user_id: user._id, user_mail: user.user_mail, admin: user.admin },
+    "your_secret_key",
+    { expiresIn: "1h" }
+  );
 
   //return the user along with the token
   return res.status(200).json({
@@ -123,10 +126,7 @@ const login = async (req, res) => {
     message: "User logged in successfully",
     data: { user, token }, // Include the token in the response
   });
-
-
 };
-
 
 //export the create function
 module.exports.create = create;
