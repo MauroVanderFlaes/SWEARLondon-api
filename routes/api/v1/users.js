@@ -8,7 +8,7 @@ const router = express.Router();
 const usersController = require("../../../controllers/api/v1/users");
 
 router.post("/", usersController.create);
-router.patch("/:mail", usersController.updatePassword);
+router.patch("/:id", usersController.updatePassword);
 router.post("/login", usersController.login);
 
 //export the router

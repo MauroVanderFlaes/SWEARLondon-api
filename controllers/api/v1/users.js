@@ -45,39 +45,55 @@ const create = async (req, res) => {
 };
 
 const updatePassword = async (req, res) => {
-  //update the password of a certain user by id
-  let mail = req.params.mail;
-  let { password } = req.body;
+  // Update the password of a certain user by id
+  let id = req.params.id;
+  let { oldPassword, newPassword } = req.body;
 
   // Input validation
-  if (!password) {
+  if (!oldPassword || !newPassword) {
     return res.status(400).json({
       status: "error",
       message: "Missing required 'password' field",
     });
   }
 
-  //hash the password
-  hashedPassword = await bcrypt.hash(password, salt);
-
-  //update the password
   try {
+    // Retrieve the user from the database
+    const user = await User.findOne({ _id: id });
+    console.log(user);
+
+    // Check if the old password matches
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        status: "error",
+        message: "Old password is incorrect",
+      });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update the password
     await User.updateOne(
-      { user_mail: mail },
+      { _id: id },
       {
         $set: {
           password: hashedPassword,
         },
       }
     );
+
     return res.status(200).json({
       status: "success",
       message: "Password updated successfully",
     });
   } catch (err) {
+    console.error(err); // Log the error for further analysis
     return res.status(500).json({
       status: "error",
-      message: "Error updating password",
+      message: "Error updating password. Please check server logs for details.",
     });
   }
 };
