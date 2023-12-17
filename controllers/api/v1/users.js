@@ -10,10 +10,10 @@ const salt = 12;
 //create a new user
 const create = async (req, res) => {
   //get username, user_mail, password from the request body
-  let { user_mail, password } = req.body;
+  let { user_mail, password, username, admin } = req.body;
 
   // Input validation
-  if (!user_mail || !password) {
+  if (!user_mail || !password || !username) {
     return res.status(400).json({
       status: "error",
       message: "Missing required fields",
@@ -26,6 +26,8 @@ const create = async (req, res) => {
   let user = new User({
     user_mail,
     password: hashedPassword,
+    username,
+    admin,
   });
 
   //save the user
