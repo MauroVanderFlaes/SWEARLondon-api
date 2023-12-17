@@ -8,6 +8,12 @@ module.exports.go = (primus) => {
         // Broadcast the data to all connected clients
         primus.write(data);
       }
+
+      if (data.action === "updateStatus") {
+        // Broadcast the data to all connected clients
+        primus.write(data);
+      }
+      
     });
   });
 };
