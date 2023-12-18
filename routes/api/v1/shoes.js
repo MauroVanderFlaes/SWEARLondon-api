@@ -1,6 +1,6 @@
 //require express
-const express = require('express');
-const authenticateAdmin = require('../../../middleware/auth');
+const express = require("express");
+const authenticateAdmin = require("../../../middleware/auth");
 
 //create a new router
 const router = express.Router();
@@ -13,7 +13,6 @@ router.get("/", authenticateAdmin, shoesController.index);
 router.get("/:id", authenticateAdmin, shoesController.indexId);
 router.put("/:id", authenticateAdmin, shoesController.update);
 router.delete("/:id", authenticateAdmin, shoesController.destroy);
-
 
 //export the router
 module.exports = router;

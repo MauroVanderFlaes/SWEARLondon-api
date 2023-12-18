@@ -23,7 +23,7 @@ const ShoeSchema = new Schema({
   price: { type: Number, required: false },
   quantity: { type: Number, required: false },
   username: { type: String, required: true },
-  user_mail: { type: String, required: true }, 
+  user_mail: { type: String, required: true },
   status: { type: String, default: "To be produced" },
   reference_number: { type: Number, required: false },
   date: { type: Date, default: Date.now },

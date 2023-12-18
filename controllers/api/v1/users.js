@@ -62,7 +62,6 @@ const updatePassword = async (req, res) => {
   try {
     // Retrieve the user from the database
     const user = await User.findOne({ _id: id });
-    console.log(user);
 
     // Check if the old password matches
     const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
